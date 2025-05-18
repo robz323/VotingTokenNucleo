@@ -1,15 +1,15 @@
 # VotingToken
 
-Un contrato inteligente de gobernanza comunitaria usando tokens como votos.
+VotingToken es un contrato inteligente que implementa un sistema de votación basado en tokens. Cada token equivale a un voto, y los usuarios pueden crear propuestas, votar por ellas y consultar resultados.
 
 ## Funcionalidades
 
-- `distributeTokens(address, amount)` – Distribuye tokens a votantes.
-- `createProposal(description)` – Crea una nueva propuesta.
-- `vote(proposalId)` – Vota por una propuesta.
-- `getProposal(proposalId)` – Consulta una propuesta.
-- `hasVoted(proposalId, voter)` – Verifica si ya votó.
-- `closeProposal(proposalId)` – Finaliza la votación.
+- distributeTokens(address, amount) – Distribuye tokens a votantes.
+- createProposal(description) – Crea una nueva propuesta.
+- vote(proposalId) – Vota por una propuesta.
+- getProposal(proposalId) – Consulta una propuesta.
+- hasVoted(proposalId, voter) – Verifica si ya votó.
+- closeProposal(proposalId) – Finaliza la votación.
 
 ## Despliegue
 
@@ -18,6 +18,34 @@ Este contrato está desplegado en **Arbitrum Sepolia**.
 ## Uso
 
 Proyecto basado en **Hardhat**.
+
+## Formación y Buenas Prácticas
+
+Este contrato fue desarrollado como parte del curso de desarrollo de contratos inteligentes de Núcleo, donde aprendí a crear, probar, compilar y desplegar contratos en Solidity utilizando Hardhat.
+
+Se implementaron buenas prácticas vistas en clase para garantizar seguridad, claridad y control en el sistema de votación:
+
+🔐 Reglas de Propiedad y Control
+
+Solo el owner del contrato puede:
+	•	Crear nuevas propuestas (createProposal)
+	•	Distribuir tokens a los vecinos (distributeTokens)
+	•	Cerrar propuestas (closeProposal)
+
+🎯 Reglas de Distribución de Tokens
+	•	Cada vecino puede recibir solo 1 token
+	•	No se permite distribuir tokens a la dirección inválida (address(0))
+	•	Un vecino no puede recibir tokens si ya los tiene
+	•	La distribución se realiza en lote (batch)
+
+🗳️ Reglas de Votación
+	•	Para votar, el vecino debe tener tokens (balance > 0)
+	•	Cada vecino solo puede votar una vez por propuesta
+	•	Solo se puede votar en propuestas activas
+	•	El voto puede ser a favor (true) o en contra (false)
+	•	Cada token representa 1 voto
+
+ Gracias profe Rafa ❤️
 
 ## Contrato desplegado y verificado
 
